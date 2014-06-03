@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MySQLModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="empresas">
+          <Key>
+            <PropertyRef Name="nif" />
+          </Key>
+          <Property Name="nif" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ff" Type="datetime" Precision="0" />
+          <Property Name="poblacion" Type="varchar" MaxLength="30" />
+          <Property Name="telefono" Type="varchar" MaxLength="12" />
+          <Property Name="logo" Type="varchar" MaxLength="100" />
+          <Property Name="activa" Type="bool" Nullable="false" />
+          <Property Name="usr" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="passwd" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="activo" Type="bool" Nullable="false" />
+          <Property Name="lastlogin" Type="datetime" Precision="0" />
+        </EntityType>
+        <Association Name="empresas_ibfk_1">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="empresas" Type="Self.empresas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="empresas">
+              <PropertyRef Name="usr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MySQLModelStoreContainer">
+          <EntitySet Name="empresas" EntityType="Self.empresas" Schema="mf0493" store:Type="Tables" />
+          <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="mf0493" store:Type="Tables" />
+          <AssociationSet Name="empresas_ibfk_1" Association="Self.empresas_ibfk_1">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="empresas" EntitySet="empresas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MySQLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="empresa">
+          <Key>
+            <PropertyRef Name="nif" />
+          </Key>
+          <Property Name="nif" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ff" Type="DateTime" />
+          <Property Name="poblacion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="logo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="activa" Type="Boolean" Nullable="false" />
+          <Property Name="usr" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="usuario" Relationship="Self.empresas_ibfk_1" FromRole="empresas" ToRole="usuarios" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="passwd" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <Property Name="lastlogin" Type="DateTime" />
+          <NavigationProperty Name="empresas" Relationship="Self.empresas_ibfk_1" FromRole="usuarios" ToRole="empresas" />
+        </EntityType>
+        <Association Name="empresas_ibfk_1">
+          <End Role="usuarios" Type="Self.usuario" Multiplicity="1" />
+          <End Role="empresas" Type="Self.empresa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="empresas">
+              <PropertyRef Name="usr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MySQLEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="empresas" EntityType="Self.empresa" />
+          <EntitySet Name="usuarios" EntityType="Self.usuario" />
+          <AssociationSet Name="empresas_ibfk_1" Association="Self.empresas_ibfk_1">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="empresas" EntitySet="empresas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MySQLModelStoreContainer" CdmEntityContainer="MySQLEntities">
+          <EntitySetMapping Name="empresas">
+            <EntityTypeMapping TypeName="MySQLModel.empresa">
+              <MappingFragment StoreEntitySet="empresas">
+                <ScalarProperty Name="nif" ColumnName="nif" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="ff" ColumnName="ff" />
+                <ScalarProperty Name="poblacion" ColumnName="poblacion" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+                <ScalarProperty Name="activa" ColumnName="activa" />
+                <ScalarProperty Name="usr" ColumnName="usr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuarios">
+            <EntityTypeMapping TypeName="MySQLModel.usuario">
+              <MappingFragment StoreEntitySet="usuarios">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="passwd" ColumnName="passwd" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="lastlogin" ColumnName="lastlogin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
