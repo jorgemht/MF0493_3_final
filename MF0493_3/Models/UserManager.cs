@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace MF0493_3.Models
+namespace MF0493_3.Models.Models
 {
     public class UserManager
     {
 
-        public static usuario get(string username)
+        public static Usuario get(string username)
         {
-            MySQLEntities db = new MySQLEntities();
-            var data = from usuarios in db.usuarios
+            MF0493Entities db = new MF0493Entities();
+            var data = from usuarios in db.Usuarios
                        where usuarios.username == username
                        select usuarios;
 
@@ -19,30 +19,31 @@ namespace MF0493_3.Models
             else return data.First();
 
         }
-        public static List<usuario> getAll()
+        public static List<Usuario> getAll()
         {
-            using (MySQLEntities db = new MySQLEntities())
+            using (MF0493Entities db = new MF0493Entities())
             {
-                var data = from usuarios in db.usuarios
+                var data = from usuarios in db.Usuarios
                            select usuarios;
 
                 return data.ToList();
             }
         }
 
-        public static bool NuevoUsuario(usuario u) {
+        public static bool NuevoUsuario(Usuario u)
+        {
 
             if (u == null) return false;
 
-            using (MySQLEntities db = new MySQLEntities())
+            using (MF0493Entities db = new MF0493Entities())
             {
-                var data = from usuarios in db.usuarios
+                var data = from usuarios in db.Usuarios
                            where usuarios.username == u.username
                            select usuarios;
 
                 if (data.Count() == 0)
                 {
-                    db.usuarios.Add(u);
+                    db.Usuarios.Add(u);
                     db.SaveChanges();
                     return true;
                 }
@@ -54,22 +55,22 @@ namespace MF0493_3.Models
         }
         public static void CrearAdmin()
         {
-            using (MySQLEntities db = new MySQLEntities())
+            using (MF0493Entities db = new MF0493Entities())
             {
-                var data = from usuarios in db.usuarios
+                var data = from usuarios in db.Usuarios
                            where usuarios.username == "admin"
                            select usuarios;
 
                 if (data.Count() == 0)
                 {
-                    usuario u = new usuario() 
+                    Usuario u = new Usuario() 
                     { 
                         username = "admin",
                         activo = true,
                         email ="jucles@a2000.es",                        
                         passwdSinCifrar = "aaa111..."
-                    };                    
-                    db.usuarios.Add(u);
+                    };
+                    db.Usuarios.Add(u);
                     db.SaveChanges();                    
                 }
             }      

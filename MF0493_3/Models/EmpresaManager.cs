@@ -9,11 +9,11 @@ namespace MF0493_3.Models
     public class EmpresaManager
     {
 
-        public static empresa get(string nif)
+        public static Empresa get(string nif)
         {
-            using (MySQLEntities db = new MySQLEntities())
+            using (MF0493Entities db = new MF0493Entities())
             {
-                var data = from empresa in db.empresas
+                var data = from empresa in db.Empresas
                            where empresa.nif == nif
                            select empresa;
 
@@ -21,29 +21,29 @@ namespace MF0493_3.Models
                 else return data.First();
             }
         }
-        public static List<empresa> getAll()
+        public static List<Empresa> getAll()
         {
-            using (MySQLEntities db = new MySQLEntities())
+            using (MF0493Entities db = new MF0493Entities())
             {
-                var data = from empresa in db.empresas                           
+                var data = from empresa in db.Empresas                           
                            select empresa;
                 
                 return data.ToList();
             }
         }
-        public static bool Nueva(empresa emp)
+        public static bool Nueva(Empresa emp)
         {
             if (emp == null) return false;
 
-            using (MySQLEntities db = new MySQLEntities())
+            using (MF0493Entities db = new MF0493Entities())
             {
-                var data = from empresa in db.empresas
+                var data = from empresa in db.Empresas
                            where empresa.nif == emp.nif
                            select empresa;
 
                 if (data.Count() == 0)
                 {
-                    db.empresas.Add(emp);
+                    db.Empresas.Add(emp);
                     db.SaveChanges();
                     return true;
                 }
@@ -53,25 +53,25 @@ namespace MF0493_3.Models
                 }
             }  
         }
-        public static bool Modificar(empresa emp)
+        public static bool Modificar(Empresa emp)
         {
             if (emp == null) return false;
 
-            using (MySQLEntities db = new MySQLEntities())
+            using (MF0493Entities db = new MF0493Entities())
             {
-                var data = from empresa in db.empresas
+                var data = from empresa in db.Empresas
                            where empresa.nif == emp.nif
                            select empresa;
 
                 if (data.Count() == 0)
                 {
-                    db.empresas.Add(emp);
+                    db.Empresas.Add(emp);
                     db.SaveChanges();
                     return true;
                 }
                 else
                 {
-                    empresa e = data.First();
+                    Empresa e = data.First();
 
                     e.nombre = emp.nombre;
                     e.poblacion = emp.poblacion;
@@ -86,15 +86,15 @@ namespace MF0493_3.Models
         }
         public static bool Eliminar(string nif)
         {
-            using (MySQLEntities db = new MySQLEntities())
+            using (MF0493Entities db = new MF0493Entities())
             {
-                var data = from empresa in db.empresas
+                var data = from empresa in db.Empresas
                            where empresa.nif == nif
                            select empresa;
 
                 if (data.Count() != 0)
                 {
-                    db.empresas.Remove(data.First());
+                    db.Empresas.Remove(data.First());
                     db.SaveChanges();
                     return true;
                 }

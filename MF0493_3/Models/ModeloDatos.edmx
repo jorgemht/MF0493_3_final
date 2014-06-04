@@ -4,110 +4,110 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MySQLModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="empresas">
+    <Schema Namespace="MF0493Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Empresas">
           <Key>
             <PropertyRef Name="nif" />
           </Key>
           <Property Name="nif" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="nombre" Type="varchar" MaxLength="80" Nullable="false" />
-          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="ff" Type="datetime" Precision="0" />
+          <Property Name="nombre" Type="varchar" MaxLength="80" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="ff" Type="datetime" />
           <Property Name="poblacion" Type="varchar" MaxLength="30" />
           <Property Name="telefono" Type="varchar" MaxLength="12" />
           <Property Name="logo" Type="varchar" MaxLength="100" />
-          <Property Name="activa" Type="bool" Nullable="false" />
-          <Property Name="usr" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="activa" Type="bit" />
+          <Property Name="usr" Type="varchar" MaxLength="20" />
         </EntityType>
-        <EntityType Name="usuarios">
+        <EntityType Name="Usuarios">
           <Key>
             <PropertyRef Name="username" />
           </Key>
           <Property Name="username" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="passwd" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="activo" Type="bool" Nullable="false" />
-          <Property Name="lastlogin" Type="datetime" Precision="0" />
+          <Property Name="passwd" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="activo" Type="bit" Nullable="false" />
+          <Property Name="lastlogin" Type="datetime" />
         </EntityType>
-        <Association Name="empresas_ibfk_1">
-          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
-          <End Role="empresas" Type="Self.empresas" Multiplicity="*" />
+        <Association Name="FK_Empresas_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Empresas" Type="Self.Empresas" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="usuarios">
+            <Principal Role="Usuarios">
               <PropertyRef Name="username" />
             </Principal>
-            <Dependent Role="empresas">
+            <Dependent Role="Empresas">
               <PropertyRef Name="usr" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MySQLModelStoreContainer">
-          <EntitySet Name="empresas" EntityType="Self.empresas" Schema="mf0493" store:Type="Tables" />
-          <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="mf0493" store:Type="Tables" />
-          <AssociationSet Name="empresas_ibfk_1" Association="Self.empresas_ibfk_1">
-            <End Role="usuarios" EntitySet="usuarios" />
-            <End Role="empresas" EntitySet="empresas" />
+        <EntityContainer Name="MF0493ModelStoreContainer">
+          <EntitySet Name="Empresas" EntityType="Self.Empresas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Empresas_Usuarios" Association="Self.FK_Empresas_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Empresas" EntitySet="Empresas" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="MySQLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="empresa">
+      <Schema Namespace="MF0493Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Empresa">
           <Key>
             <PropertyRef Name="nif" />
           </Key>
           <Property Name="nif" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nombre" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ff" Type="DateTime" />
+          <Property Name="nombre" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ff" Type="DateTime" Precision="3" />
           <Property Name="poblacion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="telefono" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="logo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="activa" Type="Boolean" Nullable="false" />
-          <Property Name="usr" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="usuario" Relationship="Self.empresas_ibfk_1" FromRole="empresas" ToRole="usuarios" />
+          <Property Name="activa" Type="Boolean" />
+          <Property Name="usr" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuario" Relationship="MF0493Model.FK_Empresas_Usuarios" FromRole="Empresa" ToRole="Usuario" />
         </EntityType>
-        <EntityType Name="usuario">
+        <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="username" />
           </Key>
           <Property Name="username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="passwd" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="passwd" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="activo" Type="Boolean" Nullable="false" />
-          <Property Name="lastlogin" Type="DateTime" />
-          <NavigationProperty Name="empresas" Relationship="Self.empresas_ibfk_1" FromRole="usuarios" ToRole="empresas" />
+          <Property Name="lastlogin" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Empresas" Relationship="MF0493Model.FK_Empresas_Usuarios" FromRole="Usuario" ToRole="Empresa" />
         </EntityType>
-        <Association Name="empresas_ibfk_1">
-          <End Role="usuarios" Type="Self.usuario" Multiplicity="1" />
-          <End Role="empresas" Type="Self.empresa" Multiplicity="*" />
+        <EntityContainer Name="MF0493Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Empresas" EntityType="Self.Empresa" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_Empresas_Usuarios" Association="MF0493Model.FK_Empresas_Usuarios">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Empresa" EntitySet="Empresas" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Empresas_Usuarios">
+          <End Type="MF0493Model.Usuario" Role="Usuario" Multiplicity="0..1" />
+          <End Type="MF0493Model.Empresa" Role="Empresa" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="usuarios">
+            <Principal Role="Usuario">
               <PropertyRef Name="username" />
             </Principal>
-            <Dependent Role="empresas">
+            <Dependent Role="Empresa">
               <PropertyRef Name="usr" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MySQLEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="empresas" EntityType="Self.empresa" />
-          <EntitySet Name="usuarios" EntityType="Self.usuario" />
-          <AssociationSet Name="empresas_ibfk_1" Association="Self.empresas_ibfk_1">
-            <End Role="usuarios" EntitySet="usuarios" />
-            <End Role="empresas" EntitySet="empresas" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MySQLModelStoreContainer" CdmEntityContainer="MySQLEntities">
-          <EntitySetMapping Name="empresas">
-            <EntityTypeMapping TypeName="MySQLModel.empresa">
-              <MappingFragment StoreEntitySet="empresas">
+        <EntityContainerMapping StorageEntityContainer="MF0493ModelStoreContainer" CdmEntityContainer="MF0493Entities">
+          <EntitySetMapping Name="Empresas">
+            <EntityTypeMapping TypeName="MF0493Model.Empresa">
+              <MappingFragment StoreEntitySet="Empresas">
                 <ScalarProperty Name="nif" ColumnName="nif" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="email" ColumnName="email" />
@@ -120,9 +120,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="usuarios">
-            <EntityTypeMapping TypeName="MySQLModel.usuario">
-              <MappingFragment StoreEntitySet="usuarios">
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="MF0493Model.Usuario">
+              <MappingFragment StoreEntitySet="Usuarios">
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="passwd" ColumnName="passwd" />
@@ -147,7 +147,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
