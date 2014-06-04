@@ -2,12 +2,8 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../Content/bootstrap-datepicker3.css" rel="stylesheet" />
-    <script type="text/javascript" src="../Scripts/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap-datepicker.js"></script>    
 
-
-    <script type="text/javascript">
-
-    </script>
     <style type="text/css">
         #boton {
             text-align:center;
