@@ -11,6 +11,8 @@ namespace MF0493_3.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.Security.Cryptography;
+    using System.Text;
     
     public partial class Usuario
     {
