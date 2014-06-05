@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.UI;
+using MF0493_3.Models;
+
 
 namespace MF0493_3
 {
@@ -15,11 +17,16 @@ namespace MF0493_3
             ScriptManager.ScriptResourceMapping.AddDefinition("jquery",
                 new ScriptResourceDefinition
                 {
-                    Path = "~/scripts/jquery-1.10.1.min.js",
-                    DebugPath = "~/scripts/jquery-1.10.1.min.js",
+                    Path = "~/scripts/jquery-1.9.1.min.js",
+                    DebugPath = "~/scripts/jquery-1.9.1.min.js",
                     CdnPath = "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js",
                     CdnDebugPath = "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.js"
                 });
+
+            Usuario u = UserManager.get("admin");
+
+            if (u == null) UserManager.CrearAdmin();
+
         }
     }
 }

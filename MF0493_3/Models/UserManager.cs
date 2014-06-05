@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace MF0493_3.Models.Models
+namespace MF0493_3.Models
 {
     public class UserManager
     {

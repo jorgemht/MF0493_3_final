@@ -10,7 +10,25 @@
 namespace MF0493_3 {
     
     
-    public partial class add {
+    public partial class edit {
+        
+        /// <summary>
+        /// foto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image foto;
+        
+        /// <summary>
+        /// tabla control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Table tabla;
         
         /// <summary>
         /// txtDni control.
@@ -103,6 +121,15 @@ namespace MF0493_3 {
         protected global::System.Web.UI.WebControls.TextBox txtPoblacion;
         
         /// <summary>
+        /// txtPyme control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox txtPyme;
+        
+        /// <summary>
         /// txtTlf control.
         /// </summary>
         /// <remarks>
@@ -119,15 +146,6 @@ namespace MF0493_3 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CustomValidator valTelefono;
-        
-        /// <summary>
-        /// txtPyme control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox txtPyme;
         
         /// <summary>
         /// Label4 control.
@@ -164,5 +182,14 @@ namespace MF0493_3 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGuardar;
+        
+        /// <summary>
+        /// btnCancelar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancelar;
     }
 }

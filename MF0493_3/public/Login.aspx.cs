@@ -21,30 +21,39 @@ namespace MF0493_3.PublicLogin
             //valido = FormsAuthentication.Authenticate(this.Login1.UserName,this.Login1.Password);
             //autentifica el usuario y el password con los datos de la lista que tenemos en la variable de aplicacion
 
-            MySQLEntities bd = new MySQLEntities();
+            MF0493Entities bd = new MF0493Entities();
 
-            var usr = from usuarios in bd.usuarios
+            var usr = from usuarios in bd.Usuarios
                       where usuarios.username == this.Login1.UserName
                       select usuarios;
 
-            usuario u = usr.First();
 
-            if (u.activo == true && u.validar(this.Login1.Password))
-            {
-                FormsAuthentication.RedirectFromLoginPage(this.Login1.UserName, false);
-                e.Authenticated = true;
-                Response.Redirect("~/Default.aspx");
+            if (usr.Count() == 0) {
+                e.Authenticated = false;
+                this.Login1.FailureText = "El usuario no existe en el sistema.";
             }
             else
             {
-                e.Authenticated = false;
-                if (u.activo == false)
+                Usuario u = usr.First();
+
+                if (u != null && u.activo == true && u.validar(this.Login1.Password))
                 {
-                    this.Login1.FailureText = "El usuario esta bloqueado, conctacte con el administrador";
+                    FormsAuthentication.RedirectFromLoginPage(this.Login1.UserName, false);
+                    e.Authenticated = true;
+                    Session.Add("usr", u);
+                    Response.Redirect("~/Default.aspx");
                 }
                 else
                 {
-                    this.Login1.FailureText = "El nombre de usuario o contraseña son erroneos.";
+                    e.Authenticated = false;
+                    if (u.activo == false)
+                    {
+                        this.Login1.FailureText = "El usuario esta bloqueado, conctacte con el administrador";
+                    }
+                    else
+                    {
+                        this.Login1.FailureText = "El nombre de usuario o contraseña son erroneos.";
+                    }
                 }
             }
 

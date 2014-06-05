@@ -3,28 +3,35 @@
 
 
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="zona2" runat="server">
-    <div class="panel panel-primary">
-        <div class="panel-heading">Menu de opciones</div>
-        <div class="panel-body">
-            <a class ="btn btn-default btn-block" id="lnkNuevo" href="Add.aspx">Nuevo</a>
-            <a class ="btn btn-default btn-block" id="lnkEdit" href="EmpEdit.aspx">Editar</a>
-            <a class ="btn btn-default btn-block" id="lnkBorrar" href="Del.aspx">Borrar</a>
-            <a class ="btn btn-default btn-block" id="lnkMostrar" href="Listar.aspx">Mostrar</a>
-        </div>
-    </div>
-        <!--acciones que realiza el usuario -->
-    <div class=" panel panel-primary">
-        <div class="panel-heading">
-            Gestión de clientes
-        </div>
-        <div id="acciones" runat="server" style="text-align: center"></div>
-    </div>
-    <!-- mostramos mensaje de informacion del error -->
-    <div id="error" runat="server" style="color: red"></div>
-</asp:Content>
+
 <asp:Content ID="Content3" ContentPlaceHolderID="zona1" runat="server">
-    <h3>Menu principal</h3>
-    <h5>Numero de empresas registradas</h5>
-    <asp:Label ID="lblEmpresas" runat="server" Text="0"></asp:Label>
+    <h1>Listado de empresas</h1>
+        
+    <asp:GridView ID="GridView1" runat="server" CssClass="table table-hovered" GridLines="None" AutoGenerateColumns="False" OnRowEditing="GridView1_RowEditing">
+        <Columns>
+            <asp:BoundField DataField="nif" HeaderText="N.I.F.">
+            <ItemStyle Width="100px" />
+            </asp:BoundField>
+            <asp:BoundField DataField="nombre" HeaderText="Nombre comercial" />
+            <asp:BoundField DataField="ff" DataFormatString="{0:d}" HeaderText="Fundacion">
+            <ItemStyle Width="85px" />
+            </asp:BoundField>
+            <asp:BoundField DataField="telefono" HeaderText="Tlf">
+            <ItemStyle Width="85px" />
+            </asp:BoundField>
+            <asp:BoundField DataField="usr" HeaderText="Comercial">
+                <ItemStyle Width="70px" />
+             </asp:BoundField>
+            <asp:CommandField ButtonType="Button" DeleteText="Eliminar" ShowDeleteButton="True">
+                <ControlStyle CssClass="btn btn-danger" />
+            <ItemStyle Width="60px" />
+            </asp:CommandField>
+            <asp:CommandField EditText="Editar" InsertVisible="False" ShowCancelButton="False" ShowEditButton="True">
+            <ControlStyle CssClass="btn btn-primary" />
+            <ItemStyle Width="60px" />
+            </asp:CommandField>
+        </Columns>
+        <HeaderStyle BackColor="#000066" Font-Bold="True" ForeColor="White" />
+    </asp:GridView>
+
 </asp:Content>

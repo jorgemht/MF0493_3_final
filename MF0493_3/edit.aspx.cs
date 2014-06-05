@@ -10,11 +10,30 @@ using System.Web.UI.WebControls;
 
 namespace MF0493_3
 {
-    public partial class add : System.Web.UI.Page
+    public partial class edit : System.Web.UI.Page
     {
+        
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!this.IsPostBack)
+            {
+                Empresa emp = EmpresaManager.get(Session["empresa"].ToString());
+                Session.Remove("empresa");
+                this.foto.ImageUrl = emp.logo;
+                this.txtDni.Text = emp.nif;
+                this.txtEmail.Text = emp.email;
+                if (emp.ff.HasValue)
+                    this.txtFnac.Text = emp.ff.Value.Day + "/" + emp.ff.Value.Month + "/" + emp.ff.Value.Year;
+                else
+                    this.txtFnac.Text = "";
+                this.txtNombre.Text = emp.nombre;
+                this.txtPoblacion.Text = emp.poblacion;
+                if (emp.activa.HasValue)
+                    this.txtPyme.Checked = emp.activa.Value;
+                else
+                    this.txtPyme.Checked = true;
+                this.txtTlf.Text = emp.telefono;
+            }
         }
         public void Nif_Valido(object source, ServerValidateEventArgs args)
         {
@@ -90,24 +109,40 @@ namespace MF0493_3
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
+
             this.Validate();
             if (this.IsValid)
             {
-                Empresa emp = new Empresa();
-                emp.activa = this.txtPyme.Checked;
-                emp.nif = this.txtDni.Text;
-                emp.nombre = this.txtNombre.Text;
-                emp.poblacion = this.txtPoblacion.Text;
-                emp.telefono = this.txtTlf.Text;
-                emp.usr = ((Usuario)Session["usr"]).username;
-                emp.ff = Convert.ToDateTime(this.txtFnac.Text);
-                
-                string ext = Path.GetExtension(this.file_u.PostedFile.FileName);
-                this.file_u.PostedFile.SaveAs(Server.MapPath("~/logos/" + this.txtDni.Text + ext));
-                emp.logo = "~/logos/" + this.txtDni.Text + ext;
-                EmpresaManager.Nueva(emp);
-                Response.Redirect("Default.aspx");
+                Empresa emp2 = EmpresaManager.get(this.txtDni.Text);
+
+                emp2.activa = this.txtPyme.Checked;
+                emp2.nif = this.txtDni.Text;
+                emp2.nombre = this.txtNombre.Text;
+                emp2.email = this.txtEmail.Text;
+                emp2.poblacion = this.txtPoblacion.Text;
+                emp2.telefono = this.txtTlf.Text;
+                emp2.usr = ((Usuario)Session["usr"]).username;
+                emp2.ff = Convert.ToDateTime(this.txtFnac.Text);
+
+                if (this.file_u.HasFile)
+                {
+                    string ext = Path.GetExtension(this.file_u.PostedFile.FileName);
+                    File.Delete(Server.MapPath("~/logos/" + this.txtDni.Text + ext));
+                    
+                    this.file_u.PostedFile.SaveAs(Server.MapPath("~/logos/" + this.txtDni.Text + ext));
+                    emp2.logo = "~/logos/" + this.txtDni.Text + ext;
+                }
+
+                EmpresaManager.Modificar(emp2);
+                Response.Redirect("default.aspx");
             }
+            
+
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("default.aspx");
         }//fin validar
     }
 }

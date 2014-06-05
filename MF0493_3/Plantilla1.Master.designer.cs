@@ -40,15 +40,6 @@ namespace MF0493_3 {
         protected global::System.Web.UI.WebControls.LoginStatus LoginStatus1;
         
         /// <summary>
-        /// zona2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder zona2;
-        
-        /// <summary>
         /// zona1 control.
         /// </summary>
         /// <remarks>
